@@ -4,6 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".MessageDetail">
+
+    <RelativeLayout
+        android:id="@+id/back"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0F0F0F0f">
+
+        <ImageView
+            android:id="@+id/iconBack"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_arrow_back_black_24dp"/>
+
+        <TextView
+            android:id="@+id/textProfile"
+            android:layout_toRightOf="@+id/iconBack"
+            android:layout_marginTop="7dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:text="Message"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutContent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/contentTittle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Content Tittle"
+            android:textSize="30dp"/>
+
+        <TextView
+            android:id="@+id/contentDetail"
+            android:layout_below="@id/contentTittle"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Content Detail"
+            android:textSize="20dp"/>
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
