@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MockupSAI</string>
+    <string name="title_activity_menu_main">MenuMain</string>
+    <string name="title_home">Home</string>
+    <string name="title_user">User</string>
+    <string name="title_finance">Finance</string>
+    <string name="title_schedule">Schedule</string>
+    <string name="title_message">Message</string>
+    <string name="title_activity_schedule">Schedule</string>
+
+</resources>

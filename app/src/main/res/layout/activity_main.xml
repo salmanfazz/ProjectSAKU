@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/esaku"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="200dp">
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_below="@+id/editPassword"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button"
+            android:fontFamily="sans-serif"
+            android:hint="Log In"
+            android:textColorHint="#FFFFFF"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/editName"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/round"
+            android:ems="10"
+            android:fontFamily="sans-serif"
+            android:hint="Username"
+            android:inputType="textPersonName"
+            android:paddingLeft="30dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp" />
+
+        <EditText
+            android:id="@+id/editPassword"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_below="@+id/editName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/round"
+            android:ems="10"
+            android:fontFamily="sans-serif"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:paddingLeft="30dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp" />
+
+        <RelativeLayout
+            android:id="@+id/LayoutText"
+            android:layout_below="@id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:id="@+id/textForget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="120dp"
+                android:layout_marginTop="20dp"
+                android:text="Lupa Password?" />
+
+            <TextView
+                android:id="@+id/Forget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@+id/textForget"
+                android:text="Klik Disini"
+                android:textColor="#00ace6" />
+
+            <TextView
+                android:id="@+id/textRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Forget"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="20dp"
+                android:text="Belum memiliki Akun?" />
+
+            <TextView
+                android:id="@+id/Register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Forget"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@+id/textRegister"
+                android:text="Daftar Disini"
+                android:textColor="#00ace6" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

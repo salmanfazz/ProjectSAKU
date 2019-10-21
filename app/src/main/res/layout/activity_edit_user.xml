@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".EditUser">
+
+    <RelativeLayout
+        android:id="@+id/back"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0F0F0F0f">
+
+        <ImageView
+            android:id="@+id/iconBack"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_arrow_back_black_24dp"/>
+
+        <TextView
+            android:id="@+id/textProfile"
+            android:layout_toRightOf="@+id/iconBack"
+            android:layout_marginTop="7dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:text="Profile"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutEdit"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgProfile"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_below="@+id/txtProfile"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/circle"
+            android:src="@drawable/ic_person_black_24dp" />
+
+        <TextView
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="340dp"
+            android:layout_marginTop="105dp"
+            android:layout_toRightOf="@+id/layoutProfile"
+            android:text="Unggah"
+            android:textSize="15dp"
+            android:textColor="@color/colorPrimary" />
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_below="@+id/imgProfile"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textNama"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama"
+                android:textSize="20dp"
+                android:layout_marginLeft="20dp"/>
+
+            <EditText
+                android:id="@+id/editName"
+                android:layout_width="375dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/round"
+                android:ems="10"
+                android:paddingLeft="30dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView
+                android:id="@+id/textEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:textSize="20dp"
+                android:layout_marginLeft="20dp"/>
+
+            <EditText
+                android:id="@+id/editEmail"
+                android:layout_width="375dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/round"
+                android:ems="10"
+                android:paddingLeft="30dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:inputType="textEmailAddress"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView
+                android:id="@+id/textTelp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Telephone"
+                android:textSize="20dp"
+                android:layout_marginLeft="20dp"/>
+
+            <EditText
+                android:id="@+id/editTelp"
+                android:layout_width="375dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/round"
+                android:ems="10"
+                android:inputType="phone"
+                android:paddingLeft="30dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginLeft="20dp"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".ContactGuru">
+
+    <RelativeLayout
+        android:id="@+id/back"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0F0F0F0f">
+
+        <ImageView
+            android:id="@+id/iconBack"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_arrow_back_black_24dp"/>
+
+        <TextView
+            android:id="@+id/textProfile"
+            android:layout_toRightOf="@+id/iconBack"
+            android:layout_marginTop="7dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:text="Profile"/>
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/search"
+        android:layout_width="380dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:drawableRight="@drawable/ic_search_black_24dp"
+        android:ems="10"
+        android:background="@drawable/search"
+        android:hint="Search"
+        android:paddingLeft="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back" />
+
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/guru"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="658dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.428"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/search">-->
+<!--    </androidx.recyclerview.widget.RecyclerView>-->
+
+    <LinearLayout
+        android:id="@+id/content"
+        app:layout_constraintTop_toBottomOf="@id/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/profile"
+            android:layout_marginLeft="5dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/ic_person_black_24dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nameGuru"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama Guru"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/telpGuru"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Telp"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
