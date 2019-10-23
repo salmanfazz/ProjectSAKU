@@ -24,7 +24,7 @@ public class MenuMain extends AppCompatActivity implements BottomNavigationView.
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new Home()).commit();
+                    new Schedule()).commit();
         }
     }
 

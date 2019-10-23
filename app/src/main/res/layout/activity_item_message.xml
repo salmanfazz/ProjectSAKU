@@ -4,57 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    tools:context=".ItemGuru">
+    tools:context=".ItemMessage">
 
     <LinearLayout
-        android:id="@+id/contentGuru"
+        android:id="@+id/contentMessage"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:padding="10dp">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
 
         <LinearLayout
             android:id="@+id/content"
-            app:layout_constraintTop_toBottomOf="@id/search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/imageView1"
+            <ImageView
+                android:id="@+id/imageMessage"
+                android:layout_marginLeft="5dp"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/ic_person_black_24dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:scaleType="fitCenter"
-                app:riv_corner_radius="30dip"
-                app:riv_border_width="2dip"
-                app:riv_border_color="#333333"
-                app:riv_mutate_background="true"
-                app:riv_oval="true" />
+                android:padding="15dp"
+                android:background="@drawable/message"
+                android:src="@drawable/ic_notif" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="15dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginTop="5dp">
 
                 <TextView
-                    android:id="@+id/nameGuru"
+                    android:id="@+id/contentName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nama Guru"
+                    android:text="Content Tittle"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/telpGuru"
+                    android:id="@+id/contentDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No Telp"
+                    android:text="Description"
                     android:textColor="@android:color/black"
                     android:textSize="15sp" />
             </LinearLayout>

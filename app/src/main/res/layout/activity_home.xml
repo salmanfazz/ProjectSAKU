@@ -8,16 +8,17 @@
     tools:context=".Home">
 
     <RelativeLayout
-        android:id="@+id/relativeLayout"
+        android:id="@+id/layoutContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/textWelcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
-            android:text="Home"
+            android:text="Hi, User!"
             android:textColor="@color/colorPrimary"
             android:textSize="40dp" />
 

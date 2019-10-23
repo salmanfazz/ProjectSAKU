@@ -37,8 +37,8 @@ public class User extends Fragment implements View.OnClickListener {
         Button logout = (Button) getView().findViewById(R.id.btnlogout);
         logout.setOnClickListener(this);
 
-        ImageView detail = (ImageView) getView().findViewById(R.id.detail);
-        detail.setOnClickListener(this);
+        LinearLayout contact = (LinearLayout) getView().findViewById(R.id.contact);
+        contact.setOnClickListener(this);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class User extends Fragment implements View.OnClickListener {
                 fr.replace(R.id.fragment_container, new EditUser());
                 fr.commit();
                 break;
-            case R.id.detail:
+            case R.id.contact:
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, new ContactGuru());
                 fragmentTransaction.commit();
