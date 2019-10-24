@@ -1,4 +1,4 @@
-package com.example.mockupsai;
+package com.example.mockupsai.Schedule;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

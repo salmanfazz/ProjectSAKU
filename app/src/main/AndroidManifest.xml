@@ -9,22 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ItemMessage"></activity>
-        <activity android:name=".Selasa" />
-        <activity android:name=".Senin" />
-        <activity android:name=".MessageDetail" />
-        <activity android:name=".Schedule" />
-        <activity android:name=".DetailFinance" />
-        <activity android:name=".ItemGuru" />
-        <activity android:name=".ContactGuru" />
-        <activity android:name=".EditUser" />
-        <activity android:name=".User" />
-        <activity android:name=".Messages" />
-        <activity android:name=".Finance" />
+        <activity android:name=".Message.ItemMessage"></activity>
+        <activity android:name=".Schedule.Selasa" />
+        <activity android:name=".Schedule.Senin" />
+        <activity android:name=".Message.MessageDetail" />
+        <activity android:name=".Schedule.Schedule" />
+        <activity android:name=".Finance.DetailFinance" />
+        <activity android:name=".Guru.ItemGuru" />
+        <activity android:name=".Guru.ContactGuru" />
+        <activity android:name=".User.EditUser" />
+        <activity android:name=".User.User" />
+        <activity android:name=".Message.Messages" />
+        <activity android:name=".Finance.Finance" />
         <activity
             android:name=".MenuMain"
             android:label="@string/title_activity_menu_main" />
-        <activity android:name=".Home" />
+        <activity android:name=".Home.Home" />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

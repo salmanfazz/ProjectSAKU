@@ -1,4 +1,4 @@
-package com.example.mockupsai;
+package com.example.mockupsai.Guru;
 
 public class Guru {
     private String nama, telp;

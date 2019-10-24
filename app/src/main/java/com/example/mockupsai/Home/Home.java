@@ -1,4 +1,4 @@
-package com.example.mockupsai;
+package com.example.mockupsai.Home;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,21 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Selasa extends Fragment implements View.OnClickListener {
+import com.example.mockupsai.R;
 
-    public Selasa() {};
+public class Home extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
-        LayoutInflater If = getActivity().getLayoutInflater();
-        View view = If.inflate(R.layout.activity_selasa, container, false);
-
-        return view;
-    }
-
-    @Override
-    public void onClick(View view) {
-
+        return inflater.inflate(R.layout.activity_home, null);
     }
 }

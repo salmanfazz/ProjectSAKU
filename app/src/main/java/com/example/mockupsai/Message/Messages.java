@@ -1,45 +1,45 @@
-package com.example.mockupsai;
+package com.example.mockupsai.Message;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 
-public class EditUser extends Fragment implements View.OnClickListener {
+import com.example.mockupsai.R;
+
+import java.util.List;
+
+public class Messages extends Fragment implements View.OnClickListener{
+    RecyclerView recyclerView;
+    List<Message> messageList;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
-        LayoutInflater If = getActivity().getLayoutInflater();
-        View view = If.inflate(R.layout.activity_edit_user, container, false);
-
-        return view;
+        return inflater.inflate(R.layout.activity_messages, null);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        ImageView iconBack = (ImageView) getView().findViewById(R.id.iconBack);
-        iconBack.setOnClickListener(this);
+        LinearLayout content = (LinearLayout) getView().findViewById(R.id.content);
+        content.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         Fragment fragment = null;
 
-        switch (view.getId()) {
-            case R.id.iconBack:
+        switch(view.getId()) {
+            case R.id.content:
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, new User());
+                fragmentTransaction.replace(R.id.fragment_container, new MessageDetail());
                 fragmentTransaction.commit();
                 break;
         }

@@ -1,4 +1,4 @@
-package com.example.mockupsai;
+package com.example.mockupsai.Schedule;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,15 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Senin extends Fragment implements View.OnClickListener {
+import com.example.mockupsai.R;
 
-    public Senin() {};
+public class Selasa extends Fragment implements View.OnClickListener {
+
+    public Selasa() {};
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saveInstanceState) {
         LayoutInflater If = getActivity().getLayoutInflater();
-        View view = If.inflate(R.layout.activity_senin, container, false);
+        View view = If.inflate(R.layout.activity_selasa, container, false);
 
         return view;
     }

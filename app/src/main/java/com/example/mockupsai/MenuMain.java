@@ -2,9 +2,12 @@ package com.example.mockupsai;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
+import com.example.mockupsai.Finance.Finance;
+import com.example.mockupsai.Home.Home;
+import com.example.mockupsai.Message.Messages;
+import com.example.mockupsai.Schedule.Schedule;
+import com.example.mockupsai.User.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;

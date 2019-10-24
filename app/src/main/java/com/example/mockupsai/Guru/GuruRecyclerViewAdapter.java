@@ -1,4 +1,4 @@
-package com.example.mockupsai;
+package com.example.mockupsai.Guru;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,11 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mockupsai.R;
 import com.makeramen.roundedimageview.RoundedImageView;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class GuruRecyclerViewAdapter extends RecyclerView.Adapter<GuruRecyclerViewAdapter.ViewHolder>{

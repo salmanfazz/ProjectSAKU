@@ -1,4 +1,4 @@
-package com.example.mockupsai;
+package com.example.mockupsai.Message;
 
 public class Message {
     private String title, description;

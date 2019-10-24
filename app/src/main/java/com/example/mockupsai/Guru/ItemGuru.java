@@ -1,14 +1,16 @@
-package com.example.mockupsai;
+package com.example.mockupsai.Guru;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class ItemMessage extends AppCompatActivity {
+import com.example.mockupsai.R;
+
+public class ItemGuru extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_message);
+        setContentView(R.layout.activity_item_guru);
     }
 }
