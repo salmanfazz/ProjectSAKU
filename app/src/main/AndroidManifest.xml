@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Message.ItemMessage"></activity>
+        <activity android:name=".Home.ItemHomeHorizontal"></activity>
+        <activity android:name=".Message.ItemMessage" />
         <activity android:name=".Schedule.Selasa" />
         <activity android:name=".Schedule.Senin" />
         <activity android:name=".Message.MessageDetail" />
@@ -34,8 +35,8 @@
         </activity>
         <activity android:name=".MainActivity" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
