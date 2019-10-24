@@ -7,21 +7,42 @@
     android:background="#FFFFFF"
     tools:context=".Home.Home">
 
-    <RelativeLayout
-        android:id="@+id/layoutContent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/textWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:text="Hi, User!"
+        android:textColor="@color/colorPrimary"
+        android:textSize="40dp" />
 
-        <TextView
-            android:id="@+id/textWelcome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="10dp"
-            android:text="Hi, User!"
-            android:textColor="@color/colorPrimary"
-            android:textSize="40dp" />
+    <TextView
+        android:id="@+id/textToDo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/textWelcome"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="30dp"
+        android:text="Ada Tugas Yang Harus Kamu Selesaikan"/>
 
-    </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listToDo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textToDo"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:orientation="horizontal"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/listToDo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="Jadwal Hari Ini"
+        android:layout_marginLeft="30dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
