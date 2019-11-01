@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "256362339938",
+    "firebase_url": "https://projectsaku-d1b10.firebaseio.com",
+    "project_id": "projectsaku-d1b10",
+    "storage_bucket": "projectsaku-d1b10.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256362339938:android:627275534b64ce595abb3b",
+        "android_client_info": {
+          "package_name": "com.example.mockupsai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "256362339938-in16ah6cv3b8ajm6agj47bdf7tfn8kpu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mockupsai",
+            "certificate_hash": "969988bcd65b6a8e4c101de388a97d1e67974fba"
+          }
+        },
+        {
+          "client_id": "256362339938-1d3s1dprltgkd3dkigosjavjk9uitmqq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCndjGXg_tpZZt8h2s2ziy2nuRE9iicIjk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "256362339938-1d3s1dprltgkd3dkigosjavjk9uitmqq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
