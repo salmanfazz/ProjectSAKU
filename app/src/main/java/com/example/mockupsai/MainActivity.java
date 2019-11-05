@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ResourceCursorAdapter;
 import android.widget.Toast;
+
 import com.example.mockupsai.Retrofit.BaseApiService;
 import com.example.mockupsai.Retrofit.Token;
 import com.example.mockupsai.Retrofit.UtilsApi;
@@ -65,13 +66,15 @@ public class MainActivity extends AppCompatActivity {
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (response.isSuccessful()){
+                        if (response.isSuccessful()) {
                             try {
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
                                 String Success = jsonRESULTS.getJSONObject("success").getString("token");
                                 Token token = new Token();
                                 token.setToken(Success);
+                                Log.d("Session ", ""+Success);
                                 Intent intent = new Intent(mContext, MenuMain.class);
+                                intent.putExtra("Token", Success);
                                 startActivity(intent);
                             } catch (JSONException e) {
                                 e.printStackTrace();
