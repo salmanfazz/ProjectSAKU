@@ -19,5 +19,6 @@ public interface BaseApiService {
                                     @Field("password") String password);
 
     @GET("siswa")
-    Call<ResponseBody> dataSiswa(@Header("Authorization") String token, @Header("Accept") String header);
+    Call<ResponseBody> dataSiswa(@Header("Authorization") String token,
+                                 @Header("Accept") String header);
 }
