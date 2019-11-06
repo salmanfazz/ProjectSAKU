@@ -25,6 +25,7 @@ import com.example.mockupsai.R;
 import com.example.mockupsai.Retrofit.BaseApiService;
 import com.example.mockupsai.Retrofit.Token;
 import com.example.mockupsai.Retrofit.UtilsApi;
+import com.google.android.gms.common.internal.Objects;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,42 +65,52 @@ public class User extends Fragment implements View.OnClickListener {
     }
 
     private void requestData() {
-        final String password = getArguments().getString("Token");
-        mApiService.dataSiswa("Bearer " +password)
+        final String password = "Bearer " +getArguments().getString("Token");
+        String header = "application/json";
+        mApiService.dataSiswa(password, header)
                 .enqueue(new Callback<ResponseBody>() {
                              @Override
                              public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                 try {
-                                     JSONObject jsonRESULTS = new JSONObject(response.body().string());
-                                     String nama = jsonRESULTS.getJSONArray("value").getJSONObject(1).getString("nama");
-                                     TextView name = (TextView) getView().findViewById(R.id.nama);
-                                     
-                                 } catch (JSONException e) {
-                                     e.printStackTrace();
-                                 } catch (IOException e) {
-                                     e.printStackTrace();
+                                 if (response.isSuccessful()) {
+                                     try {
+                                         JSONObject jsonRESULTS = new JSONObject(response.body().string());
+                                         TextView name = (TextView) getView().findViewById(R.id.nama);
+                                         TextView kelas = (TextView) getView().findViewById(R.id.kelas);
+
+                                         //Get Nama
+                                         String setNama = jsonRESULTS.getJSONArray("value").getJSONObject(0).getString("nama");
+                                         name.setText(setNama);
+
+                                         //Get Kelas
+                                         String setKelas = jsonRESULTS.getJSONArray("value").getJSONObject(0).getString("jurusan");
+                                         kelas.setText(setKelas);
+
+                                         Button btnCheck = (Button) getActivity().findViewById(R.id.btnCheck);
+                                         btnCheck.setOnClickListener(new View.OnClickListener() {
+                                             @Override
+                                             public void onClick(View v) {
+
+                                             }
+                                         });
+                                     } catch (JSONException e) {
+                                         e.printStackTrace();
+                                     } catch (IOException e) {
+                                         e.printStackTrace();
+                                     }
                                  }
-
                              }
-
                              @Override
                              public void onFailure(Call<ResponseBody> call, Throwable t) {
 
                              }
                          });
-        Button btnCheck = (Button) getActivity().findViewById(R.id.btnCheck);
-        btnCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), ""+password, Toast.LENGTH_SHORT).show();
-                Log.d("Bearer", ""+password);
-            }
-        });
     }
 
     @Override
     public void onClick(View view) {
-        Fragment fragment = null;
+        final String password = getArguments().getString("Token");
+        FragmentTransaction fragmentTransaction =
+                getFragmentManager().beginTransaction();
 
         switch (view.getId()) {
             case R.id.btnlogout:
@@ -107,12 +118,14 @@ public class User extends Fragment implements View.OnClickListener {
                 startActivity(logout);
                 break;
             case R.id.edit:
-                FragmentTransaction fr = getFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new EditUser());
-                fr.commit();
+                Bundle bundle = new Bundle();
+                bundle.putString("Token", password);
+                EditUser editUser = new EditUser();
+                editUser.setArguments(bundle);
+                fragmentTransaction.replace(R.id.fragment_container, editUser);
+                fragmentTransaction.commit();
                 break;
             case R.id.contact:
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, new ContactGuru());
                 fragmentTransaction.commit();
                 break;

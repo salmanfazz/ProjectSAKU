@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,16 +29,21 @@ public class EditUser extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         ImageView iconBack = (ImageView) getView().findViewById(R.id.iconBack);
         iconBack.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View view) {
-        Fragment fragment = null;
+        final String password = getArguments().getString("Token");
 
         switch (view.getId()) {
             case R.id.iconBack:
+                Bundle bundle = new Bundle();
+                bundle.putString("Token", password);
+                User user = new User();
+                user.setArguments(bundle);
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, new User());
+                fragmentTransaction.replace(R.id.fragment_container, user);
                 fragmentTransaction.commit();
                 break;
         }
