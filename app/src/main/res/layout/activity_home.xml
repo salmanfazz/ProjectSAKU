@@ -15,7 +15,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
-        android:text="Hi, User!"
         android:textColor="@color/colorPrimary"
         android:textSize="40dp" />
 

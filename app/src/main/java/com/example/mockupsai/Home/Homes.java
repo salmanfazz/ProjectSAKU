@@ -1,7 +1,19 @@
 package com.example.mockupsai.Home;
 
 public class Homes {
-    private String title, date, time;
+    private String title;
+    private String date;
+    private String time;
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    private String color;
 
     public Homes() {
     }

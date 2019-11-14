@@ -7,6 +7,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,13 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mockupsai.Guru.ContactGuru;
 import com.example.mockupsai.MainActivity;
-import com.example.mockupsai.MenuMain;
 import com.example.mockupsai.R;
 import com.example.mockupsai.Retrofit.BaseApiService;
 import com.example.mockupsai.Retrofit.Token;
@@ -31,6 +33,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -51,7 +55,6 @@ public class User extends Fragment implements View.OnClickListener {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        mApiService = UtilsApi.getAPIService(); // meng-init yang ada di package apihelper
         TextView edit = (TextView) getView().findViewById(R.id.edit);
         edit.setOnClickListener(this);
 
@@ -61,49 +64,50 @@ public class User extends Fragment implements View.OnClickListener {
         LinearLayout contact = (LinearLayout) getView().findViewById(R.id.contact);
         contact.setOnClickListener(this);
 
+        mApiService = UtilsApi.getAPIService();
         requestData();
     }
 
     private void requestData() {
-        final String password = "Bearer " +getArguments().getString("Token");
-        String header = "application/json";
-        mApiService.dataSiswa(password, header)
+        final String password = "Bearer " + getArguments().getString("Token");
+        String type = "application/x-wwww-form-urlencoded";
+        mApiService.dataSiswa(password, type)
                 .enqueue(new Callback<ResponseBody>() {
-                             @Override
-                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                 if (response.isSuccessful()) {
-                                     try {
-                                         JSONObject jsonRESULTS = new JSONObject(response.body().string());
-                                         TextView name = (TextView) getView().findViewById(R.id.nama);
-                                         TextView kelas = (TextView) getView().findViewById(R.id.kelas);
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()) {
+                            try {
+                                final JSONObject jsonRESULTS = new JSONObject(response.body().string());
+                                TextView name = (TextView) getView().findViewById(R.id.nama);
+                                TextView kelas = (TextView) getView().findViewById(R.id.kelas);
+                                ImageView image = (ImageView) getView().findViewById(R.id.imgProfile);
 
-                                         //Get Nama
-                                         String setNama = jsonRESULTS.getJSONArray("value").getJSONObject(0).getString("nama");
-                                         name.setText(setNama);
+                                //Get Nama
+                                String setNama = jsonRESULTS.getJSONObject("success").getString("name");
+                                name.setText(setNama);
 
-                                         //Get Kelas
-                                         String setKelas = jsonRESULTS.getJSONArray("value").getJSONObject(0).getString("jurusan");
-                                         kelas.setText(setKelas);
+                                final String setImage = jsonRESULTS.getJSONObject("success").getString("url_photo");
 
-                                         Button btnCheck = (Button) getActivity().findViewById(R.id.btnCheck);
-                                         btnCheck.setOnClickListener(new View.OnClickListener() {
-                                             @Override
-                                             public void onClick(View v) {
+                                Button btnCheck = (Button) getActivity().findViewById(R.id.btnCheck);
+                                btnCheck.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
 
-                                             }
-                                         });
-                                     } catch (JSONException e) {
-                                         e.printStackTrace();
-                                     } catch (IOException e) {
-                                         e.printStackTrace();
-                                     }
-                                 }
-                             }
-                             @Override
-                             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    }
+                                });
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
 
-                             }
-                         });
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
     }
 
     @Override

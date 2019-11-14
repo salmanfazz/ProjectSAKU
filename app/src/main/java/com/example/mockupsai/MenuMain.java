@@ -27,7 +27,7 @@ public class MenuMain extends AppCompatActivity implements BottomNavigationView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_main);
 
-        loadFragment(new Home());
+        loadFragment(new Schedule());
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
 

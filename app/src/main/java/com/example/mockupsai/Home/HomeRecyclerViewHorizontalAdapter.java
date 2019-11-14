@@ -1,9 +1,12 @@
 package com.example.mockupsai.Home;
 
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,7 +31,9 @@ public class HomeRecyclerViewHorizontalAdapter extends RecyclerView.Adapter<Home
         Homes homes = homesList.get(position);
         holder.textTitle.setText((String.valueOf((homes.getTitle()))));
         holder.textDate.setText((String.valueOf((homes.getDate()))));
-        holder.textTime.setText((String.valueOf((homes.getTime()))));
+        String color = String.valueOf(homes.getColor());
+        holder.textTitle.setBackgroundColor(Color.parseColor("" + color));
+//        holder.textTime.setText((String.valueOf((homes.getTime()))));
     }
 
     @Override
