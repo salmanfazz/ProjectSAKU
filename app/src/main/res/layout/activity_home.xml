@@ -16,7 +16,8 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
         android:textColor="@color/colorPrimary"
-        android:textSize="40dp" />
+        android:textSize="40dp"
+        android:text=" "/>
 
     <TextView
         android:id="@+id/textToDo"
@@ -66,7 +67,6 @@
             android:orientation="horizontal">
 
             <TextView
-
                 android:layout_marginLeft="5dp"
                 android:layout_width="60dp"
                 android:layout_height="70dp"

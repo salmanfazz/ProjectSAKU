@@ -1,41 +1,35 @@
 package com.example.mockupsai.User;
 
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
 import com.example.mockupsai.Guru.ContactGuru;
 import com.example.mockupsai.MainActivity;
 import com.example.mockupsai.R;
 import com.example.mockupsai.Retrofit.BaseApiService;
-import com.example.mockupsai.Retrofit.Token;
 import com.example.mockupsai.Retrofit.UtilsApi;
-import com.google.android.gms.common.internal.Objects;
-import com.squareup.picasso.Picasso;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -81,14 +75,23 @@ public class User extends Fragment implements View.OnClickListener {
                                 final JSONObject jsonRESULTS = new JSONObject(response.body().string());
                                 TextView name = (TextView) getView().findViewById(R.id.nama);
                                 TextView kelas = (TextView) getView().findViewById(R.id.kelas);
-                                ImageView image = (ImageView) getView().findViewById(R.id.imgProfile);
+                                RoundedImageView image = (RoundedImageView) getView().findViewById(R.id.imgProfile);
 
-                                //Get Nama
+                                //Get Name
                                 String setNama = jsonRESULTS.getJSONObject("success").getString("name");
                                 name.setText(setNama);
 
+                                //Get Image
                                 final String setImage = jsonRESULTS.getJSONObject("success").getString("url_photo");
-                                Log.d("URL Image", setImage);
+                                GlideUrl glideUrl = new GlideUrl(setImage,
+                                        new LazyHeaders.Builder()
+                                                .addHeader("Authorization", password)
+                                                .build());
+
+                                Glide.with(getContext())
+                                        .load(glideUrl)
+                                        .into(image);
+
                                 Button btnCheck = (Button) getActivity().findViewById(R.id.btnCheck);
                                 btnCheck.setOnClickListener(new View.OnClickListener() {
                                     @Override
