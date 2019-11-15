@@ -31,9 +31,11 @@ public class MenuMain extends AppCompatActivity implements BottomNavigationView.
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
 
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new Schedule()).commit();
+        if (savedInstanceState != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, new Schedule())
+                    .commit();
         }
     }
 

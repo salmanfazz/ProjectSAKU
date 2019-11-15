@@ -28,6 +28,7 @@ import com.example.mockupsai.Retrofit.BaseApiService;
 import com.example.mockupsai.Retrofit.Token;
 import com.example.mockupsai.Retrofit.UtilsApi;
 import com.google.android.gms.common.internal.Objects;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -87,7 +88,7 @@ public class User extends Fragment implements View.OnClickListener {
                                 name.setText(setNama);
 
                                 final String setImage = jsonRESULTS.getJSONObject("success").getString("url_photo");
-
+                                Log.d("URL Image", setImage);
                                 Button btnCheck = (Button) getActivity().findViewById(R.id.btnCheck);
                                 btnCheck.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -135,4 +136,6 @@ public class User extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
+
 }
