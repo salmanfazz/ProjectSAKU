@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,7 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.example.mockupsai.Guru.ContactGuru;
-import com.example.mockupsai.MainActivity;
+import com.example.mockupsai.Login.MainActivity;
 import com.example.mockupsai.R;
 import com.example.mockupsai.Retrofit.BaseApiService;
 import com.example.mockupsai.Retrofit.UtilsApi;
@@ -38,6 +37,7 @@ import retrofit2.Response;
 
 public class User extends Fragment implements View.OnClickListener {
     BaseApiService mApiService;
+    Call<ResponseBody> call;
 
     @Nullable
     @Override
@@ -66,8 +66,8 @@ public class User extends Fragment implements View.OnClickListener {
     private void requestData() {
         final String password = "Bearer " + getArguments().getString("Token");
         String type = "application/x-wwww-form-urlencoded";
-        mApiService.dataSiswa(password, type)
-                .enqueue(new Callback<ResponseBody>() {
+        call = mApiService.dataSiswa(password, type);
+                call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
@@ -112,6 +112,12 @@ public class User extends Fragment implements View.OnClickListener {
 
                     }
                 });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        call.cancel();
     }
 
     @Override

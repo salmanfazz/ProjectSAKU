@@ -1,4 +1,4 @@
-package com.example.mockupsai;
+package com.example.mockupsai.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
+
+import com.example.mockupsai.Login.MainActivity;
+import com.example.mockupsai.R;
 
 public class SplashScreen extends AppCompatActivity {
 

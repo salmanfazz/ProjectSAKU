@@ -37,6 +37,7 @@ public class Home extends Fragment {
     RecyclerView recyclerView;
     HomeRecyclerViewHorizontalAdapter homeRecyclerViewHorizontalAdapter;
     BaseApiService mApiService;
+    Call<ResponseBody> call;
 
     @Nullable
     @Override
@@ -64,7 +65,8 @@ public class Home extends Fragment {
     private void requestData() {
         final String password = "Bearer " + getArguments().getString("Token");
         String type = "application/x-wwww-form-urlencoded";
-        mApiService.dataSiswa(password, type).enqueue(new Callback<ResponseBody>() {
+        call = mApiService.dataSiswa(password, type);
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
@@ -84,7 +86,8 @@ public class Home extends Fragment {
 
             }
         });
-        mApiService.getJadwal(password).enqueue(new Callback<ResponseBody>() {
+        call = mApiService.getJadwal(password);
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
@@ -97,27 +100,27 @@ public class Home extends Fragment {
                         JSONObject data = dataArray.getJSONObject(i);
 
                         //SET KODE MAPEL -> MAPEL
-                            homes.setTitle(data.getString("kode_matpel"));
+                        homes.setTitle(data.getString("kode_matpel"));
                         //SET KODE HARI -> HARI
-                            if (data.getString("kode_hari").equals("1")) {
-                                homes.setDate("Senin");
-                                homes.setColor("#3474EB");
-                            } else if (data.getString("kode_hari").equals("2")) {
-                                homes.setDate("Selasa");
-                                homes.setColor("#00d904");
-                            } else if (data.getString("kode_hari").equals("3")) {
-                                homes.setDate("Rabu");
-                                homes.setColor("#ffac05");
-                            } else if (data.getString("kode_hari").equals("4")) {
-                                homes.setDate("Kamis");
-                                homes.setColor("#3474EB");
-                            } else if (data.getString("kode_hari").equals("5")) {
-                                homes.setDate("Jumat");
-                                homes.setColor("#00d904");
-                            } else if (data.getString("kode_hari").equals("6")) {
-                                homes.setDate("Sabtu");
-                                homes.setColor("#ffac05");
-                            }
+                        if (data.getString("kode_hari").equals("1")) {
+                            homes.setDate("Senin");
+                            homes.setColor("#3474EB");
+                        } else if (data.getString("kode_hari").equals("2")) {
+                            homes.setDate("Selasa");
+                            homes.setColor("#00d904");
+                        } else if (data.getString("kode_hari").equals("3")) {
+                            homes.setDate("Rabu");
+                            homes.setColor("#ffac05");
+                        } else if (data.getString("kode_hari").equals("4")) {
+                            homes.setDate("Kamis");
+                            homes.setColor("#3474EB");
+                        } else if (data.getString("kode_hari").equals("5")) {
+                            homes.setDate("Jumat");
+                            homes.setColor("#00d904");
+                        } else if (data.getString("kode_hari").equals("6")) {
+                            homes.setDate("Sabtu");
+                            homes.setColor("#ffac05");
+                        }
 
                         homeArrayList.add(homes);
 
@@ -137,5 +140,11 @@ public class Home extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        call.cancel();
     }
 }

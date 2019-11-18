@@ -1,4 +1,4 @@
-package com.example.mockupsai;
+package com.example.mockupsai.Login;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.example.mockupsai.Finance.Finance;
 import com.example.mockupsai.Home.Home;
 import com.example.mockupsai.Message.Messages;
+import com.example.mockupsai.R;
 import com.example.mockupsai.Retrofit.Token;
 import com.example.mockupsai.Schedule.Schedule;
 import com.example.mockupsai.User.User;
@@ -34,7 +35,7 @@ public class MenuMain extends AppCompatActivity implements BottomNavigationView.
         if (savedInstanceState != null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragment_container, new Schedule())
+                    .add(R.id.fragment_container, new Schedule())
                     .commit();
         }
     }
