@@ -16,6 +16,15 @@ public interface BaseApiService {
             @Field("password") String password
     );
 
+    @FormUrlEncoded
+    @POST("register")
+    Call<ResponseBody> registerRequest(
+            @Field("name") String name,
+            @Field("email") String email,
+            @Field("password") String password,
+            @Field("confirm_password") String confirm_password
+    );
+
     @POST("details")
     Call<ResponseBody> dataSiswa(
             @Header("Authorization") String token,

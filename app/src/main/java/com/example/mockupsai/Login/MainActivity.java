@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnLogin;
     EditText editName;
     EditText editPassword;
-    TextView textRegister;
+    TextView Register;
     Context mContext;
     BaseApiService mApiService;
     Call<ResponseBody> call;
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = this;
-        mApiService = UtilsApi.getAPIService(); // meng-init yang ada di package apihelper
+        mApiService = UtilsApi.getAPIService();
         initComponents();
     }
 
@@ -51,9 +51,9 @@ public class MainActivity extends AppCompatActivity {
         editName = (EditText) findViewById(R.id.editName);
         editPassword = (EditText) findViewById(R.id.editPassword);
         btnLogin = (Button) findViewById(R.id.btnLogin);
-        textRegister = (TextView) findViewById(R.id.Register);
+        Register = (TextView) findViewById(R.id.Register);
 
-        textRegister.setOnClickListener(new View.OnClickListener() {
+        Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Register.class);
@@ -77,14 +77,16 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         try {
-                            JSONObject jsonRESULTS = new JSONObject(response.body().string());
-                            String Success = jsonRESULTS.getJSONObject("success").getString("token");
-                            Token token = new Token();
-                            token.setToken(Success);
-                            Log.d("Session ", ""+Success);
-                            Intent intent = new Intent(mContext, MenuMain.class);
-                            intent.putExtra("Token", Success);
-                            startActivity(intent);
+                            if (response.code() == 200) {
+                                JSONObject jsonRESULTS = new JSONObject(response.body().string());
+                                String Success = jsonRESULTS.getJSONObject("success").getString("token");
+                                Token token = new Token();
+                                token.setToken(Success);
+                                Log.d("Session ", ""+Success);
+                                Intent intent = new Intent(mContext, MenuMain.class);
+                                intent.putExtra("Token", Success);
+                                startActivity(intent);
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         } catch (IOException e) {

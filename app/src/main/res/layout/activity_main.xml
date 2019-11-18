@@ -87,17 +87,18 @@
         android:id="@+id/textForget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="120dp"
         android:layout_marginTop="20dp"
         android:text="Lupa Password?"
+        android:layout_marginRight="65dp"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
     <TextView
         android:id="@+id/Forget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@+id/textForget"
         android:text="Klik Disini"
@@ -109,20 +110,21 @@
         android:id="@+id/textRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="100dp"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="60dp"
         android:text="Belum memiliki Akun?"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textForget" />
 
     <TextView
         android:id="@+id/Register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@+id/textRegister"
-        android:text="Daftar Disini"
+        android:text="Register"
         android:textColor="#00ace6"
         app:layout_constraintLeft_toRightOf="@id/textRegister"
         app:layout_constraintTop_toBottomOf="@+id/textForget" />
