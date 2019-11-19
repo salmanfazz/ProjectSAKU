@@ -3,6 +3,7 @@ package com.example.mockupsai.User;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,51 +68,53 @@ public class User extends Fragment implements View.OnClickListener {
         final String password = "Bearer " + getArguments().getString("Token");
         String type = "application/x-wwww-form-urlencoded";
         call = mApiService.dataSiswa(password, type);
-                call.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (response.isSuccessful()) {
-                            try {
-                                final JSONObject jsonRESULTS = new JSONObject(response.body().string());
-                                TextView name = (TextView) getView().findViewById(R.id.nama);
-                                TextView kelas = (TextView) getView().findViewById(R.id.kelas);
-                                RoundedImageView image = (RoundedImageView) getView().findViewById(R.id.imgProfile);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    final JSONObject jsonRESULTS = new JSONObject(response.body().string());
+                    TextView name = (TextView) getView().findViewById(R.id.nama);
+                    TextView kelas = (TextView) getView().findViewById(R.id.kelas);
+                    RoundedImageView image = (RoundedImageView) getView().findViewById(R.id.imgProfile);
 
-                                //Get Name
-                                String setNama = jsonRESULTS.getJSONObject("success").getString("name");
-                                name.setText(setNama);
+                    //Get Name
+                    String setNama = jsonRESULTS.getJSONObject("success").getString("name");
+                    name.setText(setNama);
 
-                                //Get Image
-                                final String setImage = jsonRESULTS.getJSONObject("success").getString("url_photo");
-                                GlideUrl glideUrl = new GlideUrl(setImage,
-                                        new LazyHeaders.Builder()
-                                                .addHeader("Authorization", password)
-                                                .build());
+                    //Get Kelas
+                    String setKelas = jsonRESULTS.getJSONArray("detail").getJSONObject(0).getString("kode_kelas");
+                    kelas.setText(setKelas);
 
-                                Glide.with(getContext())
-                                        .load(glideUrl)
-                                        .into(image);
+                    //Get Image
+                    final String setImage = jsonRESULTS.getJSONObject("success").getString("url_photo");
+                    GlideUrl glideUrl = new GlideUrl(setImage,
+                            new LazyHeaders.Builder()
+                                    .addHeader("Authorization", password)
+                                    .build());
 
-                                Button btnCheck = (Button) getActivity().findViewById(R.id.btnCheck);
-                                btnCheck.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
+                    Glide.with(getContext())
+                            .load(glideUrl)
+                            .into(image);
 
-                                    }
-                                });
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                    Button btnCheck = (Button) getActivity().findViewById(R.id.btnCheck);
+                    btnCheck.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
                         }
-                    }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-                    }
-                });
+            }
+        });
     }
 
     @Override

@@ -70,22 +70,46 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void requestLogin() {
-        String email = editName.getText().toString();
-        String password = editPassword.getText().toString();
+        final String email = editName.getText().toString();
+        final String password = editPassword.getText().toString();
+        final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         call = mApiService.loginRequest(email, password);
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (email.isEmpty()) {
+                            editName.setError("Email is required");
+                            editName.requestFocus();
+                            return;
+                        }
+
+                        if (email.matches(emailPattern)) {
+
+                        } else {
+                            editName.setError("Please enter valid email");
+                            editName.requestFocus();
+                            return;
+                        }
+
+                        if (password.isEmpty()) {
+                            editPassword.setError("Password is required");
+                            editPassword.requestFocus();
+                            return;
+                        }
+
                         try {
                             if (response.code() == 200) {
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
                                 String Success = jsonRESULTS.getJSONObject("success").getString("token");
+                                Toast.makeText(mContext, "Login Success" ,Toast.LENGTH_SHORT).show();
                                 Token token = new Token();
                                 token.setToken(Success);
                                 Log.d("Session ", ""+Success);
                                 Intent intent = new Intent(mContext, MenuMain.class);
                                 intent.putExtra("Token", Success);
                                 startActivity(intent);
+                            } else {
+                                Toast.makeText(mContext, "Login Failed", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
