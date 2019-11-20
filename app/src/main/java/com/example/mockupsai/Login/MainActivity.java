@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.example.mockupsai.R;
 import com.example.mockupsai.Register;
 import com.example.mockupsai.Retrofit.BaseApiService;
-import com.example.mockupsai.Retrofit.Token;
 import com.example.mockupsai.Retrofit.UtilsApi;
 
 import org.json.JSONException;
@@ -102,8 +101,6 @@ public class MainActivity extends AppCompatActivity {
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
                                 String Success = jsonRESULTS.getJSONObject("success").getString("token");
                                 Toast.makeText(mContext, "Login Success" ,Toast.LENGTH_SHORT).show();
-                                Token token = new Token();
-                                token.setToken(Success);
                                 Log.d("Session ", ""+Success);
                                 Intent intent = new Intent(mContext, MenuMain.class);
                                 intent.putExtra("Token", Success);

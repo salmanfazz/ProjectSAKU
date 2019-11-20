@@ -74,6 +74,8 @@ public class Home extends Fragment {
                     TextView name = (TextView) getView().findViewById(R.id.textWelcome);
                     String setNama = jsonRESULTS.getJSONObject("success").getString("name");
                     name.setText("Hi, " + setNama + "!");
+                    String kelas = jsonRESULTS.getJSONArray("detail").getJSONObject(0).getString("kode_kelas");
+                    Log.d("Your Class : ", kelas);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -85,6 +87,7 @@ public class Home extends Fragment {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
             }
+
         });
         call = mApiService.getJadwal(password);
         call.enqueue(new Callback<ResponseBody>() {
@@ -93,7 +96,9 @@ public class Home extends Fragment {
                 try {
                     JSONObject jsonRESULTS = new JSONObject(response.body().string());
                     ArrayList<Homes> homeArrayList = new ArrayList<>();
-                    JSONArray dataArray = jsonRESULTS.getJSONArray("XI-RPL");
+                    String kelas = "XI-RPL";
+
+                    JSONArray dataArray = jsonRESULTS.getJSONArray("" +kelas);
 
                     for (int i = 0; i < dataArray.length(); i++) {
                         Homes homes = new Homes();
