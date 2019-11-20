@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.example.mockupsai.Guru.ContactGuru;
+import com.example.mockupsai.Loading;
 import com.example.mockupsai.Login.MainActivity;
 import com.example.mockupsai.R;
 import com.example.mockupsai.Retrofit.BaseApiService;
@@ -69,10 +70,13 @@ public class User extends Fragment implements View.OnClickListener {
         this.token = MainActivity.token;
         String type = "application/x-wwww-form-urlencoded";
         call = mApiService.dataSiswa(token, type);
+        final Fragment loading = new Loading();
+        getFragmentManager().beginTransaction().add(R.id.fragment_container, loading).commit();
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
+                    getFragmentManager().beginTransaction().remove(loading).commit();
                     final JSONObject jsonRESULTS = new JSONObject(response.body().string());
                     TextView name = (TextView) getView().findViewById(R.id.nama);
                     TextView kelas = (TextView) getView().findViewById(R.id.kelas);
@@ -126,7 +130,6 @@ public class User extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        final String password = getArguments().getString("Token");
         FragmentTransaction fragmentTransaction =
                 getFragmentManager().beginTransaction();
 

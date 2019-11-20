@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mockupsai.Loading;
 import com.example.mockupsai.R;
 import com.google.android.material.tabs.TabLayout;
 

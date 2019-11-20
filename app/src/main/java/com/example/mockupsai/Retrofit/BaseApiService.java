@@ -7,6 +7,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface BaseApiService {
     @FormUrlEncoded
@@ -34,5 +35,11 @@ public interface BaseApiService {
     @GET("jadwal")
     Call<ResponseBody> getJadwal(
             @Header("Authorization") String token
+    );
+
+    @GET("siswa-tarif/{nis}")
+    Call<ResponseBody> getFinance(
+            @Header("Authorization") String token,
+            @Path("nis") String nis
     );
 }

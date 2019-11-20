@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.mockupsai.Home.HomeRecyclerViewHorizontalAdapter;
 import com.example.mockupsai.Home.HomeRecyclerViewScheduleAdapter;
 import com.example.mockupsai.Home.Homes;
+import com.example.mockupsai.Loading;
 import com.example.mockupsai.Login.MainActivity;
 import com.example.mockupsai.R;
 import com.example.mockupsai.Retrofit.BaseApiService;
@@ -72,10 +73,13 @@ public class Senin extends Fragment implements View.OnClickListener {
         this.token = MainActivity.token;
         String type = "application/x-wwww-form-urlencoded";
         call = mApiService.dataSiswa(token, type);
+        final Fragment loading = new Loading();
+        getFragmentManager().beginTransaction().add(R.id.fragment_container, loading).commit();
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
+                    getFragmentManager().beginTransaction().remove(loading).commit();
                     JSONObject jsonRESULTS = new JSONObject(response.body().string());
                     final String kelas = jsonRESULTS.getJSONArray("detail").getJSONObject(0).getString("kode_kelas");
                     call = mApiService.getJadwal(token);

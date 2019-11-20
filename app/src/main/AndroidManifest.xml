@@ -10,7 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Register"></activity>
+        <activity android:name=".Loading"></activity>
+        <activity android:name=".Register" />
         <activity android:name=".Home.ItemHomeHorizontal" />
         <activity android:name=".Message.ItemMessage" />
         <activity android:name=".Schedule.Selasa" />
@@ -35,13 +36,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".Login.MainActivity" />
-
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
