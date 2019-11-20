@@ -122,7 +122,8 @@ public class Senin extends Fragment implements View.OnClickListener {
                                     }
 
                                     //SET Jam
-                                    homes.setTime(data.getString("nama"));
+                                    homes.setTime(data.getString("waktu"));
+                                    homes.setGuru(data.getString("nama"));
 
                                     homeArrayList.add(homes);
 

@@ -28,10 +28,11 @@ public class HomeRecyclerViewScheduleAdapter extends RecyclerView.Adapter<HomeRe
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Homes homes = homesList.get(position);
-        holder.txtTitle.setText((String.valueOf((homes.getTitle()))));
+        holder.txtTitle.setText(String.valueOf((homes.getTitle())));
         String color = String.valueOf(homes.getColor());
         holder.contentBackground.setBackgroundColor(Color.parseColor("" + color));
-        holder.txtTime.setText((String.valueOf((homes.getTime()))));
+        holder.txtTime.setText(String.valueOf((homes.getTime())));
+        holder.txtGuru.setText(String.valueOf(homes.getGuru()));
     }
 
     @Override
