@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.mockupsai.Login.MainActivity;
 import com.example.mockupsai.R;
 import com.example.mockupsai.Retrofit.BaseApiService;
 import com.example.mockupsai.Retrofit.UtilsApi;
@@ -33,6 +34,7 @@ import static android.app.Activity.RESULT_OK;
 public class EditUser extends Fragment implements View.OnClickListener {
     BaseApiService mApiService;
     Call<ResponseBody> call;
+    private String token = null;
 
     @Nullable
     @Override
@@ -61,14 +63,11 @@ public class EditUser extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        final String password = getArguments().getString("Token");
+        this.token = MainActivity.token;
 
         switch (view.getId()) {
             case R.id.iconBack:
-                Bundle bundle = new Bundle();
-                bundle.putString("Token", password);
                 User user = new User();
-                user.setArguments(bundle);
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, user);
                 fragmentTransaction.commit();

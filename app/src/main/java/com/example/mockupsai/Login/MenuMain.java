@@ -70,12 +70,6 @@ public class MenuMain extends AppCompatActivity implements BottomNavigationView.
 
     private boolean loadFragment(Fragment fragment) {
         if (fragment != null) {
-            Intent intent = getIntent();
-            String message = intent.getStringExtra("Token");
-            Bundle bundle = new Bundle();
-            bundle.putString("Token", message);
-
-            fragment.setArguments(bundle);
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragment_container, fragment)

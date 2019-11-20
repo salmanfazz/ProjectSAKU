@@ -39,6 +39,7 @@ import retrofit2.Response;
 public class User extends Fragment implements View.OnClickListener {
     BaseApiService mApiService;
     Call<ResponseBody> call;
+    private String token = null;
 
     @Nullable
     @Override
@@ -65,9 +66,9 @@ public class User extends Fragment implements View.OnClickListener {
     }
 
     private void requestData() {
-        final String password = "Bearer " + getArguments().getString("Token");
+        this.token = MainActivity.token;
         String type = "application/x-wwww-form-urlencoded";
-        call = mApiService.dataSiswa(password, type);
+        call = mApiService.dataSiswa(token, type);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -89,7 +90,7 @@ public class User extends Fragment implements View.OnClickListener {
                     final String setImage = jsonRESULTS.getJSONObject("success").getString("url_photo");
                     GlideUrl glideUrl = new GlideUrl(setImage,
                             new LazyHeaders.Builder()
-                                    .addHeader("Authorization", password)
+                                    .addHeader("Authorization", token)
                                     .build());
 
                     Glide.with(getContext())
@@ -135,10 +136,7 @@ public class User extends Fragment implements View.OnClickListener {
                 startActivity(logout);
                 break;
             case R.id.edit:
-                Bundle bundle = new Bundle();
-                bundle.putString("Token", password);
                 EditUser editUser = new EditUser();
-                editUser.setArguments(bundle);
                 fragmentTransaction.replace(R.id.fragment_container, editUser);
                 fragmentTransaction.commit();
                 break;

@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     Context mContext;
     BaseApiService mApiService;
     Call<ResponseBody> call;
+    public static String token = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
         final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         call = mApiService.loginRequest(email, password);
                 call.enqueue(new Callback<ResponseBody>() {
+                    private String Success;
+
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (email.isEmpty()) {
@@ -99,11 +102,10 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             if (response.code() == 200) {
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
-                                String Success = jsonRESULTS.getJSONObject("success").getString("token");
+                                Success = jsonRESULTS.getJSONObject("success").getString("token");
                                 Toast.makeText(mContext, "Login Success" ,Toast.LENGTH_SHORT).show();
-                                Log.d("Session ", ""+Success);
                                 Intent intent = new Intent(mContext, MenuMain.class);
-                                intent.putExtra("Token", Success);
+                                MainActivity.token = "Bearer " + this.Success;
                                 startActivity(intent);
                             } else {
                                 Toast.makeText(mContext, "Login Failed", Toast.LENGTH_SHORT).show();

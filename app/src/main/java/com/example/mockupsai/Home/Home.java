@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.mockupsai.Login.MainActivity;
 import com.example.mockupsai.R;
 import com.example.mockupsai.Retrofit.BaseApiService;
 import com.example.mockupsai.Retrofit.UtilsApi;
@@ -40,6 +41,7 @@ public class Home extends Fragment {
     LinearLayoutManager linearLayoutManager, layoutManager;
     BaseApiService mApiService;
     Call<ResponseBody> call;
+    private String token = null;
 
     @Nullable
     @Override
@@ -64,14 +66,18 @@ public class Home extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         contentSchedule.setLayoutManager(layoutManager);
 
+        if (contentSchedule != null) {
+            contentSchedule.setHasFixedSize(true);
+        }
+
         mApiService = UtilsApi.getAPIService();
         requestData();
     }
 
     private void requestData() {
-        final String password = "Bearer " + getArguments().getString("Token");
+        this.token = MainActivity.token;
         String type = "application/x-wwww-form-urlencoded";
-        call = mApiService.dataSiswa(password, type);
+        call = mApiService.dataSiswa(token, type);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -81,7 +87,7 @@ public class Home extends Fragment {
                     String setNama = jsonRESULTS.getJSONObject("success").getString("name");
                     name.setText("Hi, " + setNama + "!");
                     final String kelas = jsonRESULTS.getJSONArray("detail").getJSONObject(0).getString("kode_kelas");
-                    call = mApiService.getJadwal(password);
+                    call = mApiService.getJadwal(token);
                     call.enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

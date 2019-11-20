@@ -34,7 +34,6 @@ public class HomeRecyclerViewHorizontalAdapter extends RecyclerView.Adapter<Home
         String color = String.valueOf(homes.getColor());
         holder.textTitle.setBackgroundColor(Color.parseColor("" + color));
         holder.textTime.setText((String.valueOf((homes.getTime()))));
-//        holder.textTime.setText((String.valueOf((homes.getTime()))));
     }
 
     @Override
