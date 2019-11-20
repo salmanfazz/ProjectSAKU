@@ -34,8 +34,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Home extends Fragment {
-    RecyclerView recyclerView;
+    RecyclerView topSchedule, contentSchedule;
     HomeRecyclerViewHorizontalAdapter homeRecyclerViewHorizontalAdapter;
+    HomeRecyclerViewScheduleAdapter homeRecyclerViewScheduleAdapter;
+    LinearLayoutManager linearLayoutManager, layoutManager;
     BaseApiService mApiService;
     Call<ResponseBody> call;
 
@@ -50,13 +52,17 @@ public class Home extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        recyclerView = (RecyclerView) getView().findViewById(R.id.listToDo);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(layoutManager);
+        topSchedule = (RecyclerView) getView().findViewById(R.id.listToDo);
+        linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        topSchedule.setLayoutManager(linearLayoutManager);
 
-        if (recyclerView != null) {
-            recyclerView.setHasFixedSize(true);
+        if (topSchedule != null) {
+            topSchedule.setHasFixedSize(true);
         }
+
+        contentSchedule = (RecyclerView) getView().findViewById(R.id.listSchedule);
+        layoutManager = new LinearLayoutManager(getContext());
+        contentSchedule.setLayoutManager(layoutManager);
 
         mApiService = UtilsApi.getAPIService();
         requestData();
@@ -74,65 +80,74 @@ public class Home extends Fragment {
                     TextView name = (TextView) getView().findViewById(R.id.textWelcome);
                     String setNama = jsonRESULTS.getJSONObject("success").getString("name");
                     name.setText("Hi, " + setNama + "!");
-                    String kelas = jsonRESULTS.getJSONArray("detail").getJSONObject(0).getString("kode_kelas");
-                    Log.d("Your Class : ", kelas);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+                    final String kelas = jsonRESULTS.getJSONArray("detail").getJSONObject(0).getString("kode_kelas");
+                    call = mApiService.getJadwal(password);
+                    call.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            try {
+                                String setKelas = "";
+                                JSONObject jsonRESULTS = new JSONObject(response.body().string());
+                                ArrayList<Homes> homeArrayList = new ArrayList<>();
+                                if (kelas.equals("XI-13RPL")) {
+                                    setKelas = "XI-RPL";
+                                } else if (kelas.equals("XI-9TKJ")) {
+                                    setKelas = "XI-TKJ";
+                                }
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                JSONArray dataArray = jsonRESULTS.getJSONArray("" +setKelas);
 
-            }
+                                for (int i = 0; i < dataArray.length(); i++) {
+                                    Homes homes = new Homes();
+                                    JSONObject data = dataArray.getJSONObject(i);
 
-        });
-        call = mApiService.getJadwal(password);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    JSONObject jsonRESULTS = new JSONObject(response.body().string());
-                    ArrayList<Homes> homeArrayList = new ArrayList<>();
-                    String kelas = "XI-RPL";
+                                    //SET KODE MAPEL -> MAPEL
+                                    homes.setTitle(data.getString("kode_matpel"));
+                                    //SET KODE HARI -> HARI
+                                    if (data.getString("kode_hari").equals("1")) {
+                                        homes.setDate("Senin");
+                                        homes.setColor("#3474EB");
+                                    } else if (data.getString("kode_hari").equals("2")) {
+                                        homes.setDate("Selasa");
+                                        homes.setColor("#00d904");
+                                    } else if (data.getString("kode_hari").equals("3")) {
+                                        homes.setDate("Rabu");
+                                        homes.setColor("#ffac05");
+                                    } else if (data.getString("kode_hari").equals("4")) {
+                                        homes.setDate("Kamis");
+                                        homes.setColor("#3474EB");
+                                    } else if (data.getString("kode_hari").equals("5")) {
+                                        homes.setDate("Jumat");
+                                        homes.setColor("#00d904");
+                                    } else if (data.getString("kode_hari").equals("6")) {
+                                        homes.setDate("Sabtu");
+                                        homes.setColor("#ffac05");
+                                    }
 
-                    JSONArray dataArray = jsonRESULTS.getJSONArray("" +kelas);
+                                    //SET Jam
+                                    homes.setTime(data.getString("nama"));
 
-                    for (int i = 0; i < dataArray.length(); i++) {
-                        Homes homes = new Homes();
-                        JSONObject data = dataArray.getJSONObject(i);
+                                    homeArrayList.add(homes);
 
-                        //SET KODE MAPEL -> MAPEL
-                        homes.setTitle(data.getString("kode_matpel"));
-                        //SET KODE HARI -> HARI
-                        if (data.getString("kode_hari").equals("1")) {
-                            homes.setDate("Senin");
-                            homes.setColor("#3474EB");
-                        } else if (data.getString("kode_hari").equals("2")) {
-                            homes.setDate("Selasa");
-                            homes.setColor("#00d904");
-                        } else if (data.getString("kode_hari").equals("3")) {
-                            homes.setDate("Rabu");
-                            homes.setColor("#ffac05");
-                        } else if (data.getString("kode_hari").equals("4")) {
-                            homes.setDate("Kamis");
-                            homes.setColor("#3474EB");
-                        } else if (data.getString("kode_hari").equals("5")) {
-                            homes.setDate("Jumat");
-                            homes.setColor("#00d904");
-                        } else if (data.getString("kode_hari").equals("6")) {
-                            homes.setDate("Sabtu");
-                            homes.setColor("#ffac05");
+                                    homeRecyclerViewHorizontalAdapter = new HomeRecyclerViewHorizontalAdapter(homeArrayList);
+                                    topSchedule.setAdapter(homeRecyclerViewHorizontalAdapter);
+
+                                    homeRecyclerViewScheduleAdapter = new HomeRecyclerViewScheduleAdapter(homeArrayList);
+                                    contentSchedule.setAdapter(homeRecyclerViewScheduleAdapter);
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
 
-                        homeArrayList.add(homes);
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-                        homeRecyclerViewHorizontalAdapter = new HomeRecyclerViewHorizontalAdapter(homeArrayList);
-                        recyclerView.setAdapter(homeRecyclerViewHorizontalAdapter);
-                    }
-
+                        }
+                    });
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -144,6 +159,7 @@ public class Home extends Fragment {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
             }
+
         });
     }
 

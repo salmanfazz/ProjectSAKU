@@ -4,6 +4,7 @@ public class Homes {
     private String title;
     private String date;
     private String time;
+    private String guru;
 
     public String getColor() {
         return color;
@@ -16,6 +17,14 @@ public class Homes {
     private String color;
 
     public Homes() {
+    }
+
+    public String getGuru() {
+        return guru;
+    }
+
+    public void setGuru(String guru) {
+        this.guru = guru;
     }
 
     public String getTitle() {
