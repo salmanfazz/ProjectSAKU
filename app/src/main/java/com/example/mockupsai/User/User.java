@@ -100,14 +100,6 @@ public class User extends Fragment implements View.OnClickListener {
                     Glide.with(getContext())
                             .load(glideUrl)
                             .into(image);
-
-                    Button btnCheck = (Button) getActivity().findViewById(R.id.btnCheck);
-                    btnCheck.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                        }
-                    });
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (IOException e) {

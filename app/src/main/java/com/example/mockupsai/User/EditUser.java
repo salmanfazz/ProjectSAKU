@@ -17,17 +17,28 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.LazyHeaders;
+import com.example.mockupsai.Loading;
 import com.example.mockupsai.Login.MainActivity;
 import com.example.mockupsai.R;
 import com.example.mockupsai.Retrofit.BaseApiService;
 import com.example.mockupsai.Retrofit.UtilsApi;
+import com.makeramen.roundedimageview.RoundedImageView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -58,7 +69,46 @@ public class EditUser extends Fragment implements View.OnClickListener {
 
     }
 
+    private void uploadImage() {
+
+    }
+
     private void requestData() {
+        this.token = MainActivity.token;
+        String type = "application/x-wwww-form-urlencoded";
+        call = mApiService.dataSiswa(token, type);
+        final Fragment loading = new Loading();
+        getFragmentManager().beginTransaction().add(R.id.fragment_container, loading).commit();
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    getFragmentManager().beginTransaction().remove(loading).commit();
+                    final JSONObject jsonRESULTS = new JSONObject(response.body().string());
+                    RoundedImageView image = (RoundedImageView) getView().findViewById(R.id.imgEditProfile);
+
+                    //Get Image
+                    final String setImage = jsonRESULTS.getJSONObject("success").getString("url_photo");
+                    GlideUrl glideUrl = new GlideUrl(setImage,
+                            new LazyHeaders.Builder()
+                                    .addHeader("Authorization", token)
+                                    .build());
+
+                    Glide.with(getContext())
+                            .load(glideUrl)
+                            .into(image);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
@@ -84,18 +134,54 @@ public class EditUser extends Fragment implements View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
 
         TextView urlUpload = (TextView) getView().findViewById(R.id.url_upload);
-        ImageView imageUpload = (ImageView) getView().findViewById(R.id.imgProfile);
+        ImageView imageUpload = (ImageView) getView().findViewById(R.id.imgEditProfile);
 
         if (resultCode == RESULT_OK) {
             Uri uri = data.getData();
             Bitmap bitmap;
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            boolean status;
+            
+            int k = 20;
+            String filename;
             try {
                 bitmap = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(uri));
                 imageUpload.setImageBitmap(bitmap);
+                filename = getRandomWord(k);
+                Log.d("File Name", filename);
+
+                File file = new File(getContext().getCacheDir(), filename);
+                file.createNewFile();
+
+                bitmap.compress(Bitmap.CompressFormat.PNG, 0, byteArrayOutputStream);
+                byte[] bitmapdata = byteArrayOutputStream.toByteArray();
+
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                fileOutputStream.write(bitmapdata);
+                fileOutputStream.flush();
+                fileOutputStream.close();
+
+                status = file.createNewFile();
+                Log.d("Upload Status", String.valueOf(status));
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    static String getRandomWord(int k){
+        String randomWord = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                                + "0123456789"
+                                + "abcdefghijklmnopqrstuvxyz";
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for(int i = 0; i < k; i++) {
+            int index = (int)(randomWord.length() * Math.random());
+
+            stringBuilder.append(randomWord.charAt(index));
+        }
+        return stringBuilder.toString();
     }
 }

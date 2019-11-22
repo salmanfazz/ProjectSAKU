@@ -37,9 +37,14 @@ public interface BaseApiService {
             @Header("Authorization") String token
     );
 
-    @GET("siswa-tarif/{nis}")
+    @GET("siswa-tarif/")
     Call<ResponseBody> getFinance(
             @Header("Authorization") String token,
             @Path("nis") String nis
+    );
+
+    @POST("file/upload/")
+    Call<ResponseBody> upload(
+            @Path("photo") String image
     );
 }
