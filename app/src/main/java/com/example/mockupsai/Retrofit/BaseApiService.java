@@ -47,7 +47,7 @@ public interface BaseApiService {
     );
 
     @Multipart
-    @POST("file/upload/")
+    @POST("file/upload")
     Call<ResponseBody> upload(
             @Header("Authorization") String token,
             @Part MultipartBody.Part image

@@ -50,6 +50,7 @@ public class EditUser extends Fragment implements View.OnClickListener {
     BaseApiService mApiService;
     Call<ResponseBody> call;
     private String token = null;
+    public String url = null;
 
     @Nullable
     @Override
@@ -162,7 +163,7 @@ public class EditUser extends Fragment implements View.OnClickListener {
                 fileOutputStream.flush();
                 fileOutputStream.close();
 
-                RequestBody requestFile =  RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(fileOutputStream));
+                RequestBody requestFile =  RequestBody.create(MediaType.parse("multipart/form-data"), file);
                 MultipartBody.Part body =  MultipartBody.Part.createFormData("photo", file.getName(), requestFile);
 
                 call = mApiService.upload(token, body);
@@ -171,6 +172,15 @@ public class EditUser extends Fragment implements View.OnClickListener {
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
                             Toast.makeText(getContext(), "Success Upload Image", Toast.LENGTH_SHORT).show();
+                            try {
+                                JSONObject jsonRESULTS = new JSONObject(response.body().string());
+                                url = jsonRESULTS.getString("url");
+                                Log.d("Image Url", url);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         } else {
                             Toast.makeText(getContext(), "Failed to Upload Image", Toast.LENGTH_SHORT).show();
                         }
