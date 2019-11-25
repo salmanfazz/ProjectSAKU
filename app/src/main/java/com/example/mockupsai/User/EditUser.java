@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
@@ -35,6 +36,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -66,10 +70,6 @@ public class EditUser extends Fragment implements View.OnClickListener {
 
         mApiService = UtilsApi.getAPIService();
         requestData();
-
-    }
-
-    private void uploadImage() {
 
     }
 
@@ -145,13 +145,14 @@ public class EditUser extends Fragment implements View.OnClickListener {
             int k = 20;
             String filename;
             try {
+                this.token = MainActivity.token;
                 bitmap = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(uri));
                 imageUpload.setImageBitmap(bitmap);
                 filename = getRandomWord(k);
                 Log.d("File Name", filename);
 
                 File file = new File(getContext().getCacheDir(), filename);
-                file.createNewFile();
+                status = file.createNewFile();
 
                 bitmap.compress(Bitmap.CompressFormat.PNG, 0, byteArrayOutputStream);
                 byte[] bitmapdata = byteArrayOutputStream.toByteArray();
@@ -161,7 +162,26 @@ public class EditUser extends Fragment implements View.OnClickListener {
                 fileOutputStream.flush();
                 fileOutputStream.close();
 
-                status = file.createNewFile();
+                RequestBody requestFile =  RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(fileOutputStream));
+                MultipartBody.Part body =  MultipartBody.Part.createFormData("photo", file.getName(), requestFile);
+
+                call = mApiService.upload(token, body);
+                call.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()) {
+                            Toast.makeText(getContext(), "Success Upload Image", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "Failed to Upload Image", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
+
                 Log.d("Upload Status", String.valueOf(status));
 
             } catch (Exception e) {
