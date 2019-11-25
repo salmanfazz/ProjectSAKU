@@ -9,6 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 
@@ -52,4 +53,21 @@ public interface BaseApiService {
             @Header("Authorization") String token,
             @Part MultipartBody.Part image
             );
+
+    @FormUrlEncoded
+    @POST("details/{id}")
+    Call<ResponseBody> setImage(
+            @Path("id") String id,
+            @Header("Authorization") String token,
+            @Field("url_photo") String url
+    );
+
+    @FormUrlEncoded
+    @PUT("siswa/{nis}")
+    Call<ResponseBody> setProfile(
+            @Path("nis") String nis,
+            @Header("Authorization") String token,
+            @Field("name") String name,
+            @Field("email") String email
+    );
 }

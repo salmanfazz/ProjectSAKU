@@ -41,6 +41,7 @@ public class User extends Fragment implements View.OnClickListener {
     BaseApiService mApiService;
     Call<ResponseBody> call;
     private String token = null;
+    public static String id, email, nama, nis, image = null;
 
     @Nullable
     @Override
@@ -73,6 +74,7 @@ public class User extends Fragment implements View.OnClickListener {
         final Fragment loading = new Loading();
         getFragmentManager().beginTransaction().add(R.id.fragment_container, loading).commit();
         call.enqueue(new Callback<ResponseBody>() {
+            String userID, username, userEmail, userNIS, userURL;
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
@@ -89,6 +91,21 @@ public class User extends Fragment implements View.OnClickListener {
                     //Get Kelas
                     String setKelas = jsonRESULTS.getJSONArray("detail").getJSONObject(0).getString("kode_kelas");
                     kelas.setText(setKelas);
+
+                    userID = jsonRESULTS.getJSONObject("success").getString("id");
+                    User.id = this.userID;
+
+                    userEmail = jsonRESULTS.getJSONObject("success").getString("email");
+                    User.email = this.userEmail;
+
+                    username = jsonRESULTS.getJSONObject("success").getString("name");
+                    User.nama = this.username;
+
+                    userNIS = jsonRESULTS.getJSONObject("success").getString("nis");
+                    User.nis = this.userNIS;
+
+                    userURL = jsonRESULTS.getJSONObject("success").getString("url_photo");
+                    User.image = this.userURL;
 
                     //Get Image
                     final String setImage = jsonRESULTS.getJSONObject("success").getString("url_photo");

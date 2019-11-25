@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,8 +51,10 @@ import static android.app.Activity.RESULT_OK;
 public class EditUser extends Fragment implements View.OnClickListener {
     BaseApiService mApiService;
     Call<ResponseBody> call;
+    EditText editEmail, editName;
     private String token = null;
     public String url = null;
+    private String id, nama, email, nis, image = null;
 
     @Nullable
     @Override
@@ -68,6 +72,17 @@ public class EditUser extends Fragment implements View.OnClickListener {
 
         TextView textUpload = (TextView) getView().findViewById(R.id.upload);
         textUpload.setOnClickListener(this);
+
+        Button btnSubmit = (Button) getView().findViewById(R.id.btnSubmit);
+        btnSubmit.setOnClickListener(this);
+
+        this.nama = User.nama;
+        this.email = User.email;
+
+        editEmail = (EditText) getView().findViewById(R.id.editEmail);
+        editEmail.setText("" +email);
+        editName = (EditText) getView().findViewById(R.id.editName);
+        editName.setText("" +nama);
 
         mApiService = UtilsApi.getAPIService();
         requestData();
@@ -124,8 +139,12 @@ public class EditUser extends Fragment implements View.OnClickListener {
                 fragmentTransaction.commit();
                 break;
             case R.id.upload:
+                this.image = User.image;
                 Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, 0);
+                break;
+            case R.id.btnSubmit:
+                uploadImage();
                 break;
         }
     }
@@ -133,12 +152,10 @@ public class EditUser extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        TextView urlUpload = (TextView) getView().findViewById(R.id.url_upload);
         ImageView imageUpload = (ImageView) getView().findViewById(R.id.imgEditProfile);
 
         if (resultCode == RESULT_OK) {
-            Uri uri = data.getData();
+            final Uri uri = data.getData();
             Bitmap bitmap;
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             boolean status;
@@ -166,6 +183,9 @@ public class EditUser extends Fragment implements View.OnClickListener {
                 RequestBody requestFile =  RequestBody.create(MediaType.parse("multipart/form-data"), file);
                 MultipartBody.Part body =  MultipartBody.Part.createFormData("photo", file.getName(), requestFile);
 
+                this.image = User.image;
+                Log.d("Images", image);
+
                 call = mApiService.upload(token, body);
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
@@ -174,8 +194,13 @@ public class EditUser extends Fragment implements View.OnClickListener {
                             Toast.makeText(getContext(), "Success Upload Image", Toast.LENGTH_SHORT).show();
                             try {
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
-                                url = jsonRESULTS.getString("url");
-                                Log.d("Image Url", url);
+                                if (uri.equals("")) {
+                                    url = image;
+                                    Log.d("Image Url", url);
+                                } else {
+                                    url = jsonRESULTS.getString("url");
+                                    Log.d("Image Url", url);
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             } catch (IOException e) {
@@ -198,6 +223,56 @@ public class EditUser extends Fragment implements View.OnClickListener {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void setProfile() {
+        this.token = MainActivity.token;
+        this.nis = User.nis;
+        final String username = editName.getText().toString();
+        final String userEmail = editEmail.getText().toString();
+        final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        call = mApiService.setProfile(nis, token, username, userEmail);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 200) {
+                    Toast.makeText(getContext(), "Success to Update Profile", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "Failed to Update Profile", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void uploadImage() {
+        this.id = User.id;
+        this.token = MainActivity.token;
+        this.image = User.image;
+        if (url == null) {
+            url = image;
+        }
+        call = mApiService.setImage(id, token, url);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.code() == 200) {
+//                    setProfile();
+                    Toast.makeText(getContext(), "Success to Update Profile", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "Failed to Update Profile", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 
     static String getRandomWord(int k){
