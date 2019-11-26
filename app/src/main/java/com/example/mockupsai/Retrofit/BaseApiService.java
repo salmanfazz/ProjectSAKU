@@ -67,7 +67,10 @@ public interface BaseApiService {
     Call<ResponseBody> setProfile(
             @Path("nis") String nis,
             @Header("Authorization") String token,
-            @Field("name") String name,
-            @Field("email") String email
+            @Field("nama") String name,
+            @Field("email") String email,
+            @Field("alamat_siswa") String alamat,
+            @Field("kode_kelas") String kelas,
+            @Field("tlp_siswa") String telp
     );
 }

@@ -41,7 +41,7 @@ public class User extends Fragment implements View.OnClickListener {
     BaseApiService mApiService;
     Call<ResponseBody> call;
     private String token = null;
-    public static String id, email, nama, nis, image = null;
+    public static String id, email, nama, nis, image, alamat, kelas, telp = null;
 
     @Nullable
     @Override
@@ -74,7 +74,7 @@ public class User extends Fragment implements View.OnClickListener {
         final Fragment loading = new Loading();
         getFragmentManager().beginTransaction().add(R.id.fragment_container, loading).commit();
         call.enqueue(new Callback<ResponseBody>() {
-            String userID, username, userEmail, userNIS, userURL;
+            String userID, username, userEmail, userNIS, userURL, userAlamat, userKelas, userTelp;
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
@@ -85,25 +85,41 @@ public class User extends Fragment implements View.OnClickListener {
                     RoundedImageView image = (RoundedImageView) getView().findViewById(R.id.imgProfile);
 
                     //Get Name
-                    String setNama = jsonRESULTS.getJSONObject("success").getString("name");
+                    String setNama = jsonRESULTS.getJSONArray("detail").getJSONObject(0).getString("nama");
                     name.setText(setNama);
 
                     //Get Kelas
                     String setKelas = jsonRESULTS.getJSONArray("detail").getJSONObject(0).getString("kode_kelas");
                     kelas.setText(setKelas);
 
+                    //Get ID
                     userID = jsonRESULTS.getJSONObject("success").getString("id");
                     User.id = this.userID;
 
+                    //Get Email
                     userEmail = jsonRESULTS.getJSONObject("success").getString("email");
                     User.email = this.userEmail;
 
-                    username = jsonRESULTS.getJSONObject("success").getString("name");
+                    //Get Nama
+                    username = jsonRESULTS.getJSONArray("detail").getJSONObject(0).getString("nama");
                     User.nama = this.username;
 
+                    //Get Kelas
+                    userKelas = jsonRESULTS.getJSONArray("detail").getJSONObject(0).getString("kode_kelas");
+                    User.kelas = this.userKelas;
+
+                    userTelp = jsonRESULTS.getJSONArray("detail").getJSONObject(0).getString("tlp_siswa");
+                    User.telp = this.userTelp;
+
+                    //Get Alamat
+                    userAlamat = jsonRESULTS.getJSONArray("detail").getJSONObject(0).getString("alamat_siswa");
+                    User.alamat = this.userAlamat;
+
+                    //Get Nis
                     userNIS = jsonRESULTS.getJSONObject("success").getString("nis");
                     User.nis = this.userNIS;
 
+                    //Get Photo
                     userURL = jsonRESULTS.getJSONObject("success").getString("url_photo");
                     User.image = this.userURL;
 

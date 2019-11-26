@@ -51,10 +51,10 @@ import static android.app.Activity.RESULT_OK;
 public class EditUser extends Fragment implements View.OnClickListener {
     BaseApiService mApiService;
     Call<ResponseBody> call;
-    EditText editEmail, editName;
+    EditText editAlamat, editName, editTelp;
     private String token = null;
     public String url = null;
-    private String id, nama, email, nis, image = null;
+    private String id, nama, email, nis, image, alamat, kelas, telp = null;
 
     @Nullable
     @Override
@@ -77,12 +77,17 @@ public class EditUser extends Fragment implements View.OnClickListener {
         btnSubmit.setOnClickListener(this);
 
         this.nama = User.nama;
-        this.email = User.email;
+        this.alamat = User.alamat;
+        this.telp = User.telp;
 
-        editEmail = (EditText) getView().findViewById(R.id.editEmail);
-        editEmail.setText("" +email);
+        editAlamat = (EditText) getView().findViewById(R.id.editAlamat);
+        editAlamat.setText("" +alamat);
+
         editName = (EditText) getView().findViewById(R.id.editName);
         editName.setText("" +nama);
+
+        editTelp = (EditText) getView().findViewById(R.id.editTelp);
+        editTelp.setText("" +telp);
 
         mApiService = UtilsApi.getAPIService();
         requestData();
@@ -228,10 +233,13 @@ public class EditUser extends Fragment implements View.OnClickListener {
     public void setProfile() {
         this.token = MainActivity.token;
         this.nis = User.nis;
-        final String username = editName.getText().toString();
-        final String userEmail = editEmail.getText().toString();
-        final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-        call = mApiService.setProfile(nis, token, username, userEmail);
+        this.email = User.email;
+        this.kelas = User.kelas;
+
+        String username = editName.getText().toString();
+        String useralamat = editAlamat.getText().toString();
+        String usertelp = editTelp.getText().toString();
+        call = mApiService.setProfile(nis, token, username, email, useralamat, kelas, usertelp);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -261,8 +269,8 @@ public class EditUser extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.code() == 200) {
-//                    setProfile();
-                    Toast.makeText(getContext(), "Success to Update Profile", Toast.LENGTH_SHORT).show();
+                    setProfile();
+//                    Toast.makeText(getContext(), "Success to Update Profile", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getContext(), "Failed to Update Profile", Toast.LENGTH_SHORT).show();
                 }

@@ -99,15 +99,15 @@
                 android:layout_marginRight="20dp"/>
 
             <TextView
-                android:id="@+id/textEmail"
+                android:id="@+id/textAlamat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email"
+                android:text="Alamat"
                 android:textSize="20dp"
                 android:layout_marginLeft="20dp"/>
 
             <EditText
-                android:id="@+id/editEmail"
+                android:id="@+id/editAlamat"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_centerHorizontal="true"
@@ -116,7 +116,28 @@
                 android:paddingLeft="30dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:inputType="textEmailAddress"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"/>
+
+            <TextView
+                android:id="@+id/textTelp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Handphone"
+                android:textSize="20dp"
+                android:layout_marginLeft="20dp"/>
+
+            <EditText
+                android:id="@+id/editTelp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/round"
+                android:ems="10"
+                android:inputType="number"
+                android:paddingLeft="30dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"/>
 
