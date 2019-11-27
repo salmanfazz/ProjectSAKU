@@ -41,7 +41,7 @@ public interface BaseApiService {
             @Header("Authorization") String token
     );
 
-    @GET("siswa-tarif/")
+    @GET("siswa-tarif/{nis}")
     Call<ResponseBody> getFinance(
             @Header("Authorization") String token,
             @Path("nis") String nis

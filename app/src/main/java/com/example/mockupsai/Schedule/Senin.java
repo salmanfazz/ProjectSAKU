@@ -42,6 +42,7 @@ public class Senin extends Fragment implements View.OnClickListener {
     LinearLayoutManager linearLayoutManager;
     Call<ResponseBody> call;
     private String token = null;
+    public static String nis = null;
 
     public Senin() {};
 
@@ -76,12 +77,16 @@ public class Senin extends Fragment implements View.OnClickListener {
         final Fragment loading = new Loading();
         getFragmentManager().beginTransaction().add(R.id.fragment_container, loading).commit();
         call.enqueue(new Callback<ResponseBody>() {
+            String userNIS;
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     getFragmentManager().beginTransaction().remove(loading).commit();
                     JSONObject jsonRESULTS = new JSONObject(response.body().string());
                     final String kelas = jsonRESULTS.getJSONArray("detail").getJSONObject(0).getString("kode_kelas");
+
+                    userNIS = jsonRESULTS.getJSONArray("detail").getJSONObject(0).getString("nis");
+                    Senin.nis = this.userNIS;
                     call = mApiService.getJadwal(token);
                     call.enqueue(new Callback<ResponseBody>() {
                         @Override

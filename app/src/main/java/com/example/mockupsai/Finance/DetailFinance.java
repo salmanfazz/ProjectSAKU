@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.example.mockupsai.Login.MainActivity;
 import com.example.mockupsai.R;
 import com.example.mockupsai.Retrofit.BaseApiService;
 import com.example.mockupsai.Retrofit.UtilsApi;
+import com.example.mockupsai.Schedule.Senin;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,8 +34,7 @@ import retrofit2.Response;
 public class DetailFinance extends Fragment implements View.OnClickListener {
     BaseApiService mApiService;
     Call<ResponseBody> call;
-    private String token = null;
-    private String nis = null;
+    private String token, nis = null;
 
     @Nullable
     @Override
@@ -61,14 +62,15 @@ public class DetailFinance extends Fragment implements View.OnClickListener {
 
     private void requestData() {
         this.token = MainActivity.token;
-        this.nis = Home.nis;
+        this.nis = Senin.nis;
+
         call = mApiService.getFinance(token, nis);
-        final Fragment loading = new Loading();
-        getFragmentManager().beginTransaction().add(R.id.fragment_container, loading).commit();
+//        final Fragment loading = new Loading();
+//        getFragmentManager().beginTransaction().add(R.id.fragment_container, loading).commit();
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                getFragmentManager().beginTransaction().remove(loading).commit();
+//                getFragmentManager().beginTransaction().remove(loading).commit();
                 try {
                     JSONObject jsonRESULTS = new JSONObject(response.body().string());
                     TextView setTitle = (TextView) getView().findViewById(R.id.tittleFinance);

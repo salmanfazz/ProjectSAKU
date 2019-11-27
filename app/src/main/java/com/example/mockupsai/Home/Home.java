@@ -43,7 +43,6 @@ public class Home extends Fragment {
     BaseApiService mApiService;
     Call<ResponseBody> call;
     private String token = null;
-    public static String nis = null;
 
     @Nullable
     @Override
@@ -92,9 +91,6 @@ public class Home extends Fragment {
                     TextView name = (TextView) getView().findViewById(R.id.textWelcome);
                     String setNama = jsonRESULTS.getJSONObject("success").getString("name");
                     name.setText("Hi, " + setNama + "!");
-
-                    setNis = jsonRESULTS.getJSONArray("detail").getJSONObject(0).getString("nis");
-                    Home.nis = this.setNis;
 
                     final String kelas = jsonRESULTS.getJSONArray("detail").getJSONObject(0).getString("kode_kelas");
                     call = mApiService.getJadwal(token);
