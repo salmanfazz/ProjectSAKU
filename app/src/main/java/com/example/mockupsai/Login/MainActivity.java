@@ -79,19 +79,6 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (email.isEmpty()) {
-                            editName.setError("Email is required");
-                            editName.requestFocus();
-                            return;
-                        }
-
-                        if (email.matches(emailPattern)) {
-
-                        } else {
-                            editName.setError("Please enter valid email");
-                            editName.requestFocus();
-                            return;
-                        }
 
                         if (password.isEmpty()) {
                             editPassword.setError("Password is required");
