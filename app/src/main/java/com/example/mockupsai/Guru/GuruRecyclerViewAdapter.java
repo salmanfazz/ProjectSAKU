@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,16 +14,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mockupsai.R;
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class GuruRecyclerViewAdapter extends RecyclerView.Adapter<GuruRecyclerViewAdapter.ViewHolder>{
+public class GuruRecyclerViewAdapter extends RecyclerView.Adapter<GuruRecyclerViewAdapter.ViewHolder> {
 
     List<Guru> guruList;
+    List<Guru> guruListFull;
     Context context;
 
     public GuruRecyclerViewAdapter(List<Guru> guruList, Context context) {
         this.guruList = guruList;
         this.context = context;
+        guruListFull = new ArrayList<>(guruList);
     }
 
     @Override
@@ -49,7 +54,7 @@ public class GuruRecyclerViewAdapter extends RecyclerView.Adapter<GuruRecyclerVi
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         RoundedImageView imageGuru;
         TextView telpGuru, nameGuru;
 

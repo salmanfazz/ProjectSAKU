@@ -65,12 +65,12 @@ public class DetailFinance extends Fragment implements View.OnClickListener {
         this.nis = Senin.nis;
 
         call = mApiService.getFinance(token, nis);
-//        final Fragment loading = new Loading();
-//        getFragmentManager().beginTransaction().add(R.id.fragment_container, loading).commit();
+        final Fragment loading = new Loading();
+        getFragmentManager().beginTransaction().add(R.id.fragment_container, loading).commit();
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                getFragmentManager().beginTransaction().remove(loading).commit();
+                getFragmentManager().beginTransaction().remove(loading).commit();
                 try {
                     JSONObject jsonRESULTS = new JSONObject(response.body().string());
                     TextView setTitle = (TextView) getView().findViewById(R.id.tittleFinance);

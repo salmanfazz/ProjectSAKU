@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    tools:context=".Guru.ItemGuru">
+    android:background="#FFFFFF">
 
     <LinearLayout
         android:id="@+id/contentGuru"
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:padding="10dp">
 
         <LinearLayout
@@ -21,7 +23,7 @@
             android:orientation="horizontal">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/imageView1"
+                android:id="@+id/imageGuru"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:src="@drawable/ic_person_black_24dp"

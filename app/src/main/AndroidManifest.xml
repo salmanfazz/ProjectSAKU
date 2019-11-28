@@ -13,13 +13,11 @@
         <activity android:name=".Loading"></activity>
         <activity android:name=".Register" />
         <activity android:name=".Home.ItemHomeHorizontal" />
-        <activity android:name=".Message.ItemMessage" />
         <activity android:name=".Schedule.Selasa" />
         <activity android:name=".Schedule.Senin" />
         <activity android:name=".Message.MessageDetail" />
         <activity android:name=".Schedule.Schedule" />
         <activity android:name=".Finance.DetailFinance" />
-        <activity android:name=".Guru.ItemGuru" />
         <activity android:name=".Guru.ContactGuru" />
         <activity android:name=".User.EditUser" />
         <activity android:name=".User.User" />

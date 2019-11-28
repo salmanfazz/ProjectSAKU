@@ -73,4 +73,9 @@ public interface BaseApiService {
             @Field("kode_kelas") String kelas,
             @Field("tlp_siswa") String telp
     );
+
+    @GET("guru-matpel")
+    Call<ResponseBody> getGuru(
+            @Header("Authorization") String token
+    );
 }
